@@ -21,7 +21,7 @@ export default async function Header() {
           <Link href="/cart" className="relative">
             <ShoppingCart className="h-5 w-5" />
             {count > 0 && (
-              <Badge variant="destructive" className="absolute -top-2 -right-2 text-xs">
+              <Badge variant="destructive" className="absolute -top-3 -right-5 text-xs">
                 {count}
               </Badge>
             )}
