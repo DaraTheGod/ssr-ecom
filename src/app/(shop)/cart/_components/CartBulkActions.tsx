@@ -1,7 +1,6 @@
-// src/app/(shop)/cart/_components/CartBulkActions.tsx
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import ConfirmDialog from "@/components/ConfirmDialog";
 
@@ -10,47 +9,66 @@ interface Props {
 }
 
 export default function CartBulkActions({ selectedCount }: Props) {
-  const [clearAllOpen, setClearAllOpen] = useState(false);
+  const [clearOpen, setClearOpen] = useState(false);
   const [deleteSelOpen, setDeleteSelOpen] = useState(false);
+
+  const clearFormRef = useRef<HTMLFormElement>(null);
+  const deleteSelFormRef = useRef<HTMLFormElement>(null);
 
   return (
     <>
-      {/* Clear All */}
-      <Button
-        variant="outline"
-        onClick={() => setClearAllOpen(true)}
-        className="w-full sm:w-auto h-12 font-khmer-toch text-base border-gray-300 hover:bg-gray-100"
+      {/* ---------- Clear All ---------- */}
+      <form
+        ref={clearFormRef}
+        action="/api/cart/clear"
+        method="POST"
+        className="w-full sm:w-auto"
       >
-        លុបទំនិញក្នុងកន្រ្តកទាំងអស់
-      </Button>
-
-      {/* Delete Selected */}
-      {selectedCount > 0 && (
+        <input type="hidden" name="redirect" value="/cart" />
         <Button
-          variant="destructive"
-          size="sm"
-          onClick={() => setDeleteSelOpen(true)}
-          className="w-full sm:w-auto h-12 font-khmer-toch text-base"
+          type="button"
+          variant="outline"
+          onClick={() => setClearOpen(true)}
+          className="w-full h-12 font-khmer-toch text-base border-gray-300 hover:bg-gray-100"
         >
-          លុបទំនិញដែលបានជ្រើសរើស ({selectedCount})
+          លុបទំនិញក្នុងកន្រ្តកទាំងអស់
         </Button>
-      )}
+      </form>
 
-      {/* Confirm: Clear All */}
       <ConfirmDialog
-        open={clearAllOpen}
+        open={clearOpen}
         title="លុបទាំងអស់?"
         description="តើអ្នកប្រាកដជាចង់លុបទំនិញទាំងអស់ចេញពីកន្ត្រកទេ?"
-        onConfirm={() => (window.location.href = "/api/cart/clear?redirect=/cart")}
-        onCancel={() => setClearAllOpen(false)}
+        onConfirm={() => clearFormRef.current?.requestSubmit()}
+        onCancel={() => setClearOpen(false)}
       />
 
-      {/* Confirm: Delete Selected */}
+      {/* ---------- Delete Selected ---------- */}
+      {selectedCount > 0 && (
+        <form
+          ref={deleteSelFormRef}
+          action="/api/cart/remove-selected"
+          method="POST"
+          className="w-full sm:w-auto"
+        >
+          <input type="hidden" name="redirect" value="/cart" />
+          <Button
+            type="button"
+            variant="destructive"
+            size="sm"
+            onClick={() => setDeleteSelOpen(true)}
+            className="w-full h-12 font-khmer-toch text-base"
+          >
+            លុបទំនិញដែលបានជ្រើសរើស ({selectedCount})
+          </Button>
+        </form>
+      )}
+
       <ConfirmDialog
         open={deleteSelOpen}
         title="លុបទំនិញដែលបានជ្រើសរើស?"
         description={`តើអ្នកប្រាកដជាចង់លុបទំនិញ ${selectedCount} មុខដែលបានជ្រើសរើសទេ?`}
-        onConfirm={() => (window.location.href = "/api/cart/remove-selected?redirect=/cart")}
+        onConfirm={() => deleteSelFormRef.current?.requestSubmit()}
         onCancel={() => setDeleteSelOpen(false)}
       />
     </>

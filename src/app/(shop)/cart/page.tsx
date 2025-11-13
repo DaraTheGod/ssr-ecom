@@ -90,6 +90,7 @@ export default async function CartPage() {
           <Separator className="bg-gray-200" />
 
           {/* Bulk Actions – OUTSIDE scroll */}
+          {/* ... inside CardContent ... */}
           <div className="flex flex-col sm:flex-row gap-3 p-6 pt-8 -mb-10">
             <CartBulkActions selectedCount={selectedIds.length} />
           </div>
