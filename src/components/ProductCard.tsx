@@ -27,12 +27,12 @@ export default function ProductCard({ product }: { product: Product }) {
             {product.name}
           </Link>
         </h3>
-        <p className="text-sm text-gray-600 font-khmer-toch line-clamp-2">
+        {/* <p className="text-sm text-gray-600 font-khmer-toch line-clamp-1">
           {product.description}
-        </p>
+        </p> */}
       </CardContent>
 
-      <CardFooter className="-mt-10 flex justify-between items-center p-5 pt-0">
+      <CardFooter className="-mt-10 flex flex-col justify-between items-center p-5 pt-0 -mb-5">
         <span className="text-2xl font-bold text-gray-800 khmer-price">
           ${product.price.toFixed(2)}
         </span>

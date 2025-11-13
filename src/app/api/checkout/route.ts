@@ -17,6 +17,7 @@ export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const selectedIds = formData.getAll("selectedIds") as string[];
   const total = Number(formData.get("total"));
+  const deliveryFee = Number(formData.get("deliveryFee"));
 
   if (!selectedIds.length || isNaN(total) || total <= 0) {
     return NextResponse.json({ error: "Invalid data" }, { status: 400 });
@@ -33,9 +34,9 @@ export async function POST(req: NextRequest) {
     deliveryNotes: formData.get("deliveryNotes"),
   };
 
-  console.log("Order received:", { selectedIds, total, customer });
+  console.log("Order:", { selectedIds, total, deliveryFee, customer });
 
-  // ────── EXACT SAME KHQR LOGIC AS YOUR MODAL ──────
+  // ────── KHQR PAYLOAD ──────
   const merchantId = "chhinchheang_dara@wing";
   const merchantName = "Chhinchheang Dara";
   const merchantCity = "Phnom Penh";
@@ -49,22 +50,22 @@ export async function POST(req: NextRequest) {
   const tag62 = `62${tag62Sub01.length.toString().padStart(2, "0")}${tag62Sub01}`;
 
   let payload = "";
-  payload += "000201"; // Payload Format Indicator
-  payload += "010212"; // Point of Initiation Method (12 = dynamic)
-  payload += tag29;    // Merchant Account Information
-  payload += "52045999"; // Merchant Category Code
-  payload += "5802KH";   // Currency Code (KH = Cambodia)
+  payload += "000201"; // Payload Format
+  payload += "010212"; // Dynamic QR
+  payload += tag29;
+  payload += "52045999"; // MCC
+  payload += "5802KH";   // Country
   payload += `59${merchantName.length.toString().padStart(2, "0")}${merchantName}`;
   payload += `60${merchantCity.length.toString().padStart(2, "0")}${merchantCity}`;
-  payload += "5303840";  // Transaction Currency (840 = USD)
+  payload += "5303840";  // USD
   payload += `54${amountStr.length.toString().padStart(2, "0")}${amountStr}`;
-  payload += tag62;      // Additional Data Field (Bill Number)
+  payload += tag62;
   payload += "6304";     // CRC placeholder
 
   const crc = crc16(payload);
-  payload += crc; // Final CRC
+  payload += crc;
 
-  // ────── PASS FULL PAYLOAD TO SUCCESS PAGE ──────
+  // ────── REDIRECT TO SUCCESS PAGE ──────
   const url = new URL("/order-success", req.url);
   url.searchParams.set("payload", payload);
   url.searchParams.set("amount", total.toFixed(2));
