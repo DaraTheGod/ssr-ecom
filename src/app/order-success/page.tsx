@@ -1,12 +1,11 @@
 // src/app/order-success/page.tsx
 import QRCode from "qrcode";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Home } from "lucide-react";
+import SuccessButton from "@/components/SuccessButton";   // ← client component
 
 /* ------------------------------------------------------------------ */
-/* ✅ Generate KHQR Payload */
+/* ✅ Generate KHQR Payload (unchanged) */
 function crc16(input: string): string {
   let crc = 0xffff;
   for (let i = 0; i < input.length; i++) {
@@ -67,7 +66,9 @@ export default async function OrderSuccessPage({
         {/* Header */}
         <div className="w-full bg-red-600 text-white text-center rounded-xl py-2">
           <h1 className="text-2xl font-bold font-khmer">KHQR</h1>
-          <p className="text-base opacity-90 font-khmer-toch -mt-2">ស្កេន QR ដើម្បីបង់ប្រាក់</p>
+          <p className="text-base opacity-90 font-khmer-toch -mt-2">
+            ស្កេន QR ដើម្បីបង់ប្រាក់
+          </p>
         </div>
 
         {/* Merchant info */}
@@ -91,14 +92,8 @@ export default async function OrderSuccessPage({
           ប្រើកម្មវិធីធនាគារដែលគាំទ្រ Bakong ដើម្បីបង់ប្រាក់។
         </p>
 
-        {/* Back Home */}
-        <Button asChild variant="outline" className="mt-4 w-full flex items-center justify-center text-lg gap-2 text-gray-700 text-center font-khmer-toch p-6">
-          <Link href="/">
-            ​បានទូទាត់រួច
-            {/* <Home className="w-4 h-4" /> */}
-            {/* ត្រឡប់ទៅទំព័រដើម */}
-          </Link>
-        </Button>
+        {/* ---- SUCCESS BUTTON (client only) ---- */}
+        <SuccessButton />
       </div>
     </div>
   );
