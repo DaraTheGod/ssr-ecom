@@ -1,36 +1,48 @@
+// components/ProductCard.tsx
 import ImageWithFallback from "./ImageWithFallback";
 import Link from "next/link";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Product } from "@/data/products";
 import { Button } from "@/components/ui/button";
 
 export default function ProductCard({ product }: { product: Product }) {
   return (
-    <Card className="h-full flex flex-col">
+    <Card className="h-full flex flex-col shadow-lg hover:shadow-xl transition-shadow rounded-xl overflow-hidden border-0">
       <CardHeader className="p-0">
         <Link href={`/product/${product.id}`}>
-            <div className="relative w-full aspect-square overflow-hidden rounded-t-lg">
+          <div className="relative w-full aspect-square overflow-hidden">
             <ImageWithFallback
-                src={product.image}
-                alt={product.name}
-                fill
-                className="object-cover"
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover transition-transform duration-300 hover:scale-105"
             />
-            </div>
+          </div>
         </Link>
       </CardHeader>
-      <CardContent className="flex-1 p-4">
-        <CardTitle className="text-lg">
-          <Link href={`/product/${product.id}`} className="hover:underline">
+
+      <CardContent className="flex-1 p-5 space-y-2">
+        <h3 className="text-lg font-medium font-khmer-toch text-gray-800 line-clamp-2">
+          <Link href={`/product/${product.id}`} className="hover:text-blue-600 transition-colors">
             {product.name}
           </Link>
-        </CardTitle>
-        <p className="text-sm text-muted-foreground mt-1">{product.description}</p>
+        </h3>
+        <p className="text-sm text-gray-600 font-khmer-toch line-clamp-2">
+          {product.description}
+        </p>
       </CardContent>
-      <CardFooter className="flex justify-between items-center p-4 pt-0">
-        <span className="text-xl font-semibold">${product.price.toFixed(2)}</span>
-        <Button asChild>
-          <a href={`/api/cart/add?id=${product.id}&qty=1&redirect=/`}>Add to Cart</a>
+
+      <CardFooter className="flex justify-between items-center p-5 pt-0">
+        <span className="text-2xl font-bold text-gray-800 khmer-price">
+          ${product.price.toFixed(2)}
+        </span>
+        <Button
+          asChild
+          className="h-12 px-6 text-base font-khmer-toch bg-blue-600 hover:bg-blue-700"
+        >
+          <a href={`/api/cart/add?id=${product.id}&qty=1&redirect=/`}>
+            បញ្ចូលទៅរទេះ
+          </a>
         </Button>
       </CardFooter>
     </Card>

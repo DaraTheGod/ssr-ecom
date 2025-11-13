@@ -1,36 +1,120 @@
+// src/app/product/[id]/page.tsx
 import { notFound } from "next/navigation";
 import { products } from "@/data/products";
 import ImageWithFallback from "@/components/ImageWithFallback";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export async function generateStaticParams() {
   return products.map((p) => ({ id: p.id }));
 }
 
-export default async function ProductDetail({ params }: { params: Promise<{ id: string }> }) {
+export default async function ProductDetail({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ qty?: string }>;
+}) {
   const { id } = await params;
+  const { qty: qtyParam } = await searchParams;
+
   const product = products.find((p) => p.id === id);
   if (!product) notFound();
 
+  // Parse quantity from URL, default to 1, min 1
+  const qty = Math.max(1, parseInt(qtyParam || "1", 10) || 1);
+
   return (
-    <div className="grid md:grid-cols-2 gap-8">
-      <div className="relative aspect-square">
-        <ImageWithFallback
-          src={product.image}
-          alt={product.name}
-          fill
-          className="object-cover rounded-lg"
-        />
-      </div>
-      <div className="flex flex-col justify-center">
-        <h1 className="text-4xl font-bold mb-2">{product.name}</h1>
-        <p className="text-2xl font-semibold text-primary mb-4">
-          ${product.price.toFixed(2)}
-        </p>
-        <p className="text-muted-foreground mb-6">{product.description}</p>
-        <Button size="lg" asChild>
-          <a href={`/api/cart/add?id=${product.id}&qty=1&redirect=/`}>Add to Cart</a>
-        </Button>
+    <div className="min-h-screen py-8 sm:py-12 bg-gradient-to-b from-gray-50 to-white">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        <div className="grid gap-8 md:grid-cols-2">
+          {/* Product Image */}
+          <div className="relative aspect-square overflow-hidden rounded-2xl bg-white shadow-xl">
+            <ImageWithFallback
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover transition-transform duration-500 hover:scale-105"
+            />
+          </div>
+
+          {/* Product Details */}
+          <div className="flex flex-col justify-center space-y-8">
+            <div>
+              <h1 className="text-3xl sm:text-4xl font-bold font-khmer text-gray-800 leading-tight">
+                {product.name}
+              </h1>
+              <p className="mt-3 text-3xl font-bold text-blue-600 khmer-price">
+                ${product.price.toFixed(2)}
+              </p>
+            </div>
+
+            <p className="text-base text-gray-700 font-khmer-toch leading-relaxed">
+              {product.description}
+            </p>
+
+            {/* Quantity Selector */}
+            <div className="flex items-center gap-4">
+              <span className="text-base font-medium font-khmer-toch text-gray-700">ចំនួន:</span>
+              <div className="flex items-center gap-0 overflow-hidden rounded-lg border-2 border-gray-300">
+                {/* Decrease */}
+                <form action={`/product/${id}`} method="GET">
+                  <input type="hidden" name="qty" value={Math.max(1, qty - 1)} />
+                  <Button
+                    type="submit"
+                    variant="ghost"
+                    size="icon"
+                    className="h-12 w-12 rounded-none border-r-2 border-gray-300 text-lg font-bold"
+                    disabled={qty <= 1}
+                  >
+                    −
+                  </Button>
+                </form>
+
+                {/* Quantity */}
+                <span className="flex h-12 w-16 items-center justify-center font-bold text-lg khmer-price text-gray-800">
+                  {qty}
+                </span>
+
+                {/* Increase */}
+                <form action={`/product/${id}`} method="GET">
+                  <input type="hidden" name="qty" value={qty + 1} />
+                  <Button
+                    type="submit"
+                    variant="ghost"
+                    size="icon"
+                    className="h-12 w-12 rounded-none border-l-2 border-gray-300 text-lg font-bold"
+                  >
+                    +
+                  </Button>
+                </form>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Button
+                size="lg"
+                asChild
+                className="h-14 flex-1 text-xl font-khmer-toch bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all"
+              >
+                <a href={`/api/cart/add?id=${product.id}&qty=${qty}&redirect=/cart`}>
+                  បញ្ចូលទៅរទេះ ({qty} {qty === 1 ? "មុខ" : "មុខ"})
+                </a>
+              </Button>
+
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="h-14 border-2 px-8 text-lg font-khmer-toch text-gray-700 hover:bg-gray-100"
+              >
+                <Link href="/">ត្រឡប់ទៅហាង</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

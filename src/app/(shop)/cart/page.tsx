@@ -33,42 +33,46 @@ export default async function CartPage() {
 
   if (items.length === 0) {
     return (
-      <div className="text-center py-12">
-        <h2 className="text-2xl font-semibold mb-4">Your cart is empty</h2>
-        <Button asChild>
-          <Link href="/">Continue Shopping</Link>
+      <div className="text-center py-16">
+        <h2 className="text-4xl font-semibold mb-6 font-khmer text-gray-800">រទេះទំនិញរបស់អ្នកទទេ</h2>
+        <Button asChild className="h-14 px-8 text-lg font-khmer-toch bg-blue-600 hover:bg-blue-700">
+          <Link href="/">បន្តទំនិញ</Link>
         </Button>
       </div>
     );
   }
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Shopping Cart</h1>
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+        <h1 className="text-4xl font-bold font-khmer text-gray-800">រទេះទំនិញរបស់អ្នក</h1>
+        <Button asChild variant="outline" size="lg" className="h-12 border-2 px-6 text-lg font-khmer-toch text-gray-700 hover:bg-gray-50">
+          <Link href="/">ត្រឡប់ទៅហាង</Link>
+        </Button>
+      </div>
 
       {/* Header */}
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-xl font-semibold">Items ({items.length})</h2>
+      <div className="flex justify-between items-center mb-6">
+        <h2 className="text-2xl font-semibold font-khmer text-gray-700">មុខទំនិញ ({items.length})</h2>
 
         <form action="/api/cart/select-all" method="POST" className="flex items-center gap-2">
           <input type="hidden" name="redirect" value="/cart" />
-          {/* <Checkbox id="select-all" /> */}
           <Button
             type="submit"
             name="action"
             value={allSelected ? "deselect" : "select"}
             variant="ghost"
             size="sm"
-            className="text-sm"
+            className="text-base font-khmer-toch text-gray-700 hover:bg-gray-100"
           >
-            {allSelected ? "Deselect All" : "Select All"}
+            {allSelected ? "មិនជ្រើសរើសទាំងអស់" : "ជ្រើសរើសទាំងអស់"}
           </Button>
         </form>
       </div>
 
-      <Card>
+      <Card className="shadow-xl border-0 rounded-xl overflow-hidden">
         <CardContent className="p-0">
-          <div className="divide-y divide-border">
+          <div className="divide-y divide-gray-200">
             {items.map((item, index) => {
               const isSelected = selectedIds.includes(item.id);
               const showMinus = item.quantity > 1;
@@ -77,97 +81,105 @@ export default async function CartPage() {
               return (
                 <div
                   key={item.id}
-                  className={`px-6 py-5 flex items-center gap-4 ${
-                    isSelected ? "bg-muted/50" : ""
-                  } ${!isLast ? "" : "border-b-0"}`}
+                  className={`px-6 py-5 flex items-center gap-4 transition-colors cart-item-hover ${
+                    !isLast ? "" : "border-b-0"
+                  }`}
                 >
                   {/* Toggle */}
                   <form action="/api/cart/toggle-select" method="POST" className="relative">
                     <input type="hidden" name="id" value={item.id} />
                     <input type="hidden" name="redirect" value="/cart" />
-                    <Checkbox checked={isSelected} />
+                    <Checkbox checked={isSelected} className="data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600" />
                     <button
                       type="submit"
                       className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                      aria-label={isSelected ? "Deselect" : "Select"}
+                      aria-label={isSelected ? "មិនជ្រើសរើស" : "ជ្រើសរើស"}
                     />
                   </form>
 
-                  <div className="w-20 h-20 relative flex-shrink-0">
+                  <div className="w-20 h-20 relative flex-shrink-0 rounded-lg overflow-hidden bg-gray-100">
                     <ImageWithFallback
                       src={item.image}
                       alt={item.name}
                       fill
-                      className="object-cover rounded"
+                      className="object-cover"
                     />
                   </div>
 
                   <div className="flex-1">
-                    <h3 className="font-medium">{item.name}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      ${item.price.toFixed(2)} each
+                    <h3 className="text-lg font-medium font-khmer-toch text-gray-800">{item.name}</h3>
+                    <p className="text-sm text-gray-600 font-khmer-toch">
+                      ${item.price.toFixed(2)} ក្នុងមួយ
                     </p>
                   </div>
 
                   <div className="flex items-center gap-2">
                     {showMinus ? (
-                      <Button variant="outline" size="sm" asChild>
-                        <a href={`/api/cart/add?id=${item.id}&qty=-1&redirect=/cart`}>-</a>
+                      <Button variant="outline" size="sm" asChild className="h-10 w-10 p-0">
+                        <a href={`/api/cart/add?id=${item.id}&qty=-1&redirect=/cart`} className="text-lg">
+                          −
+                        </a>
                       </Button>
                     ) : (
-                      <div className="w-9 h-9" />
+                      <div className="w-10 h-10" />
                     )}
-                    <span className="w-10 text-center font-medium">{item.quantity}</span>
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={`/api/cart/add?id=${item.id}&qty=1&redirect=/cart`}>+</a>
+                    <span className="w-12 text-center font-bold text-lg khmer-price text-gray-800">{item.quantity}</span>
+                    <Button variant="outline" size="sm" asChild className="h-10 w-10 p-0">
+                      <a href={`/api/cart/add?id=${item.id}&qty=1&redirect=/cart`} className="text-lg">
+                        +
+                      </a>
                     </Button>
                   </div>
 
-                  <div className="text-right w-24 font-medium">
+                  <div className="text-right w-28 font-bold text-xl khmer-price text-gray-800">
                     ${(item.price * item.quantity).toFixed(2)}
                   </div>
 
-                  <Button variant="ghost" size="sm" asChild>
-                    <a href={`/api/cart/remove?id=${item.id}&redirect=/cart`}>Remove</a>
+                  <Button variant="ghost" size="sm" asChild className="font-khmer-toch text-lg text-red-600 hover:text-red-700 hover:bg-red-50">
+                    <a href={`/api/cart/remove?id=${item.id}&redirect=/cart`}>លុប</a>
                   </Button>
                 </div>
               );
             })}
           </div>
 
-          <Separator />
+          <Separator className="bg-gray-200" />
 
-          <div className="px-6 py-4 flex justify-between text-lg font-semibold">
-            <span>Selected Total ({selectedItems.length} items)</span>
-            <span>${selectedTotal.toFixed(2)}</span>
+          <div className="px-6 py-5 flex justify-between items-center text-xl font-bold">
+            <span className="font-khmer text-gray-800">សរុបដែលបានជ្រើសរើស ({selectedItems.length} មុខ)</span>
+            <span className="text-blue-600 khmer-price text-2xl">${selectedTotal.toFixed(2)}</span>
           </div>
         </CardContent>
 
-        <CardFooter className="flex justify-between gap-4 p-6 pt-0">
-          <div className="flex gap-2">
+        <CardFooter className="flex flex-col sm:flex-row justify-between gap-4 p-6 pt-0">
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
             <form action="/api/cart/clear" method="POST">
               <input type="hidden" name="redirect" value="/cart" />
-              <Button type="submit" variant="outline">
-                Clear Cart
+              <Button type="submit" variant="outline" className="w-full sm:w-auto h-12 font-khmer-toch text-base border-gray-300 hover:bg-gray-100">
+                លុបរទេះទំនិញ
               </Button>
             </form>
 
             {selectedIds.length > 0 && (
               <form action="/api/cart/remove-selected" method="POST">
                 <input type="hidden" name="redirect" value="/cart" />
-                <Button type="submit" variant="destructive" size="sm">
-                  Remove Selected ({selectedIds.length})
+                <Button type="submit" variant="destructive" size="sm" className="w-full sm:w-auto h-12 font-khmer-toch text-base">
+                  លុបជម្រើស ({selectedIds.length})
                 </Button>
               </form>
             )}
           </div>
 
-          <form action="/checkout" method="POST">
+          <form action="/checkout" method="POST" className="w-full sm:w-auto">
             {selectedIds.map((id) => (
               <input key={id} type="hidden" name="selectedIds" value={id} />
             ))}
-            <Button type="submit" disabled={selectedIds.length === 0}>
-              Checkout Selected ({selectedIds.length})
+            <Button
+              type="submit"
+              disabled={selectedIds.length === 0}
+              className="w-full sm:w-auto h-14 text-xl font-khmer-toch bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
+            >
+              បង់ប្រាក់ជម្រើស ({selectedIds.length})
             </Button>
           </form>
         </CardFooter>

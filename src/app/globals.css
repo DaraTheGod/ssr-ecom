@@ -1,6 +1,53 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* globals.css - Add this at the top */
+@font-face {
+  font-family: 'Noto Sans Khmer';
+  src: url('/fonts/NotoSansKhmer-Regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Noto Sans Khmer';
+  src: url('/fonts/NotoSansKhmer-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* globals.css */
+@layer utilities {
+  .font-khmer {
+    font-family: 'Noto Sans Khmer', sans-serif;
+    font-weight: 600;
+    /* font-size: 1.35rem; text-lg */
+    line-height: 1.5;
+
+    margin-bottom: 0.75rem;
+  }
+
+  .font-khmer-toch {
+    font-family: 'Noto Sans Khmer', sans-serif;
+    font-weight: 400;
+    /* font-size: 1rem; text-sm */
+    /* color: #212325; text-muted-foreground */
+    margin-bottom: 0.5rem;
+  }
+  
+  .cart-item-hover:hover {
+    background-color: #f9fafb;
+    transition: background-color 0.2s;
+  }
+
+  .khmer-price {
+    font-family: 'Noto Sans Khmer', sans-serif;
+    font-weight: 500;
+  }
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
