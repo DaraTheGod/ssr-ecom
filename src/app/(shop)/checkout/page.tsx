@@ -105,31 +105,17 @@ export default async function CheckoutPage() {
                 </Label>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-base font-khmer-toch text-gray-700" htmlFor="street">
-                      ផ្ទះលេខ និង ផ្លូវ
+                    <Label className="text-base font-khmer-toch text-gray-700" htmlFor="province">
+                      រាជធានី/ខេត្ត
                     </Label>
                     <Input
-                      id="street"
-                      name="street"
+                      id="province"
+                      name="province"
                       required
-                      placeholder="ផ្ទះ #123, ផ្លូវ 456"
+                      placeholder="រាជធានីភ្នំពេញ"
                       className="mt-1 font-khmer-toch text-base placeholder:text-base text-gray-700"
                     />
                   </div>
-                  <div>
-                    <Label className="text-base font-khmer-toch text-gray-700" htmlFor="commune">
-                      ឃុំ/សង្កាត់
-                    </Label>
-                    <Input
-                      id="commune"
-                      name="commune"
-                      required
-                      placeholder="សង្កាត់ ទួលស្វាយព្រៃ"
-                      className="mt-1 font-khmer-toch text-base placeholder:text-base text-gray-700"
-                    />
-                  </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4 mt-4">
                   <div>
                     <Label className="text-base font-khmer-toch text-gray-700" htmlFor="district">
                       ស្រុក/ខណ្ឌ
@@ -142,15 +128,29 @@ export default async function CheckoutPage() {
                       className="mt-1 font-khmer-toch text-base placeholder:text-base text-gray-700"
                     />
                   </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4 mt-4">
                   <div>
-                    <Label className="text-base font-khmer-toch text-gray-700" htmlFor="province">
-                      រាជធានី/ខេត្ត
+                    <Label className="text-base font-khmer-toch text-gray-700" htmlFor="commune">
+                      ឃុំ/សង្កាត់
                     </Label>
                     <Input
-                      id="province"
-                      name="province"
+                      id="commune"
+                      name="commune"
                       required
-                      placeholder="រាជធានីភ្នំពេញ"
+                      placeholder="សង្កាត់ ទួលស្វាយព្រៃ"
+                      className="mt-1 font-khmer-toch text-base placeholder:text-base text-gray-700"
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-base font-khmer-toch text-gray-700" htmlFor="street">
+                      ផ្ទះលេខ និង ផ្លូវ
+                    </Label>
+                    <Input
+                      id="street"
+                      name="street"
+                      required
+                      placeholder="ផ្ទះ #123, ផ្លូវ 456"
                       className="mt-1 font-khmer-toch text-base placeholder:text-base text-gray-700"
                     />
                   </div>
@@ -166,7 +166,7 @@ export default async function CheckoutPage() {
                   <label className="flex items-center gap-3 p-3 rounded-lg border hover:bg-gray-50 cursor-pointer transition">
                     <RadioGroupItem value="standard" />
                     <span className="text-base font-khmer-toch text-gray-700">
-                      ដឹកជញ្ជូនធម្មតា (២-៣ ថ្ងៃ) - $3.00
+                      ដឹកជញ្ជូនស្ដង់ដារ (២-៣ ថ្ងៃ) - $3.00
                     </span>
                   </label>
                   <label className="flex items-center gap-3 p-3 rounded-lg border hover:bg-gray-50 cursor-pointer transition">
