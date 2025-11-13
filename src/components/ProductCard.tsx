@@ -22,7 +22,7 @@ export default function ProductCard({ product }: { product: Product }) {
       </CardHeader>
 
       <CardContent className="flex-1 p-5 space-y-2">
-        <h3 className="text-lg font-medium font-khmer-toch text-gray-800 line-clamp-2">
+        <h3 className="-mt-8 text-lg font-medium font-khmer-toch text-gray-800 line-clamp-2">
           <Link href={`/product/${product.id}`} className="hover:text-blue-600 transition-colors">
             {product.name}
           </Link>
@@ -32,7 +32,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </p>
       </CardContent>
 
-      <CardFooter className="flex justify-between items-center p-5 pt-0">
+      <CardFooter className="-mt-10 flex justify-between items-center p-5 pt-0">
         <span className="text-2xl font-bold text-gray-800 khmer-price">
           ${product.price.toFixed(2)}
         </span>
@@ -41,7 +41,7 @@ export default function ProductCard({ product }: { product: Product }) {
           className="mt-3 h-10 px-4 text-base font-khmer-toch bg-blue-600 hover:bg-blue-700"
         >
           <a href={`/api/cart/add?id=${product.id}&qty=1&redirect=/`}>
-            បញ្ចូលទៅរទេះ
+             ដាក់ចូលកន្ត្រក
           </a>
         </Button>
       </CardFooter>

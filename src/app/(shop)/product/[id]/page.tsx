@@ -100,7 +100,7 @@ export default async function ProductDetail({
                 className="h-14 text-xl font-khmer-toch bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all"
               >
                 <a href={`/api/cart/add?id=${product.id}&qty=${qty}&redirect=/cart`}>
-                  បញ្ចូលទៅរទេះ ({qty})
+                  ដាក់ចូលកន្ត្រក ({qty})
                 </a>
               </Button>
 
@@ -110,7 +110,7 @@ export default async function ProductDetail({
                 size="lg"
                 className="h-14 border-2 px-8 text-lg font-khmer-toch text-gray-700 hover:bg-gray-100"
               >
-                <Link href="/">ត្រឡប់ទៅហាង</Link>
+                <Link href="/">ត្រឡប់ទៅទំព័រដើម</Link>
               </Button>
             </div>
           </div>
