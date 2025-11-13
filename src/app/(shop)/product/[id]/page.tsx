@@ -56,8 +56,8 @@ export default async function ProductDetail({
             </p>
 
             {/* Quantity Selector */}
-            <div className="flex items-center gap-4">
-              <span className="text-base font-medium font-khmer-toch text-gray-700">ចំនួន:</span>
+            <div className="flex items-center gap-4 mt-4">
+              <span className="text-xl font-medium font-khmer-toch text-gray-700">ចំនួន:</span>
               <div className="flex items-center gap-0 overflow-hidden rounded-lg border-2 border-gray-300">
                 {/* Decrease */}
                 <form action={`/product/${id}`} method="GET">

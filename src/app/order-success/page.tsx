@@ -61,13 +61,13 @@ export default async function OrderSuccessPage({
   const qrDataUrl = await QRCode.toDataURL(payload, { width: 300, margin: 1 });
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 -mt-30">
+    <div className="min-h-screen flex items-center justify-center p-4 -mt-25">
       <div className="w-full max-w-sm bg-white rounded-2xl shadow-lg p-5 flex flex-col items-center space-y-4">
 
         {/* Header */}
         <div className="w-full bg-red-600 text-white text-center rounded-xl py-2">
-          <h1 className="text-3xl font-bold font-khmer">KHQR</h1>
-          <p className="text-lg opacity-90 font-khmer-toch -mt-2">ស្កេន QR ដើម្បីបង់ប្រាក់</p>
+          <h1 className="text-2xl font-bold font-khmer">KHQR</h1>
+          <p className="text-base opacity-90 font-khmer-toch -mt-2">ស្កេន QR ដើម្បីបង់ប្រាក់</p>
         </div>
 
         {/* Merchant info */}
