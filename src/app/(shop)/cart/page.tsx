@@ -146,7 +146,7 @@ export default async function CartPage() {
           <Separator className="bg-gray-200" />
 
           <div className="px-6 py-5 flex justify-between items-center text-xl font-bold">
-            <span className="font-khmer text-gray-800">សរុបដែលបានជ្រើសរើស ({selectedItems.length} មុខ)</span>
+            <span className="font-khmer text-gray-800 mt-3">សរុបដែលបានជ្រើសរើស ({selectedItems.length} មុខ)</span>
             <span className="text-blue-600 khmer-price text-2xl">${selectedTotal.toFixed(2)}</span>
           </div>
         </CardContent>
@@ -156,7 +156,7 @@ export default async function CartPage() {
             <form action="/api/cart/clear" method="POST">
               <input type="hidden" name="redirect" value="/cart" />
               <Button type="submit" variant="outline" className="w-full sm:w-auto h-12 font-khmer-toch text-base border-gray-300 hover:bg-gray-100">
-                លុបរទេះទំនិញ
+                លុបទំនិញក្នុងរទះទាំងអស់
               </Button>
             </form>
 
@@ -164,7 +164,7 @@ export default async function CartPage() {
               <form action="/api/cart/remove-selected" method="POST">
                 <input type="hidden" name="redirect" value="/cart" />
                 <Button type="submit" variant="destructive" size="sm" className="w-full sm:w-auto h-12 font-khmer-toch text-base">
-                  លុបជម្រើស ({selectedIds.length})
+                  លុបទំនិញដែលបានជ្រើសរើស ({selectedIds.length})
                 </Button>
               </form>
             )}
@@ -179,7 +179,7 @@ export default async function CartPage() {
               disabled={selectedIds.length === 0}
               className="w-full sm:w-auto h-14 text-xl font-khmer-toch bg-blue-600 hover:bg-blue-700 disabled:opacity-50"
             >
-              បង់ប្រាក់ជម្រើស ({selectedIds.length})
+              ទៅបង់ប្រាក់ទំនិញ ({selectedIds.length})
             </Button>
           </form>
         </CardFooter>

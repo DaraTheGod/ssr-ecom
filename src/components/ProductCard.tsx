@@ -38,7 +38,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </span>
         <Button
           asChild
-          className="h-12 px-6 text-base font-khmer-toch bg-blue-600 hover:bg-blue-700"
+          className="mt-3 h-10 px-4 text-base font-khmer-toch bg-blue-600 hover:bg-blue-700"
         >
           <a href={`/api/cart/add?id=${product.id}&qty=1&redirect=/`}>
             បញ្ចូលទៅរទេះ

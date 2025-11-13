@@ -26,7 +26,7 @@ export default async function ProductDetail({
   const qty = Math.max(1, parseInt(qtyParam || "1", 10) || 1);
 
   return (
-    <div className="min-h-screen py-8 sm:py-12 bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen py-8 sm:py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
         <div className="grid gap-8 md:grid-cols-2">
@@ -97,7 +97,7 @@ export default async function ProductDetail({
               <Button
                 size="lg"
                 asChild
-                className="h-14 flex-1 text-xl font-khmer-toch bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all"
+                className="h-14 text-xl font-khmer-toch bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all"
               >
                 <a href={`/api/cart/add?id=${product.id}&qty=${qty}&redirect=/cart`}>
                   បញ្ចូលទៅរទេះ ({qty} {qty === 1 ? "មុខ" : "មុខ"})

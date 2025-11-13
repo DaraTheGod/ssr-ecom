@@ -134,7 +134,7 @@ export default async function CheckoutPage() {
               </div>
 
               <Button type="submit" className="w-full h-14 text-xl font-khmer-toch bg-blue-600 hover:bg-blue-700">
-                បញ្ជាទិញ & បង់ប្រាក់ក្រោយ
+                បញ្ជាទិញ & បង់ប្រាក់
               </Button>
             </form>
           </CardContent>
