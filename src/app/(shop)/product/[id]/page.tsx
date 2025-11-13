@@ -100,7 +100,7 @@ export default async function ProductDetail({
                 className="h-14 text-xl font-khmer-toch bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-xl transition-all"
               >
                 <a href={`/api/cart/add?id=${product.id}&qty=${qty}&redirect=/cart`}>
-                  បញ្ចូលទៅរទេះ ({qty} {qty === 1 ? "មុខ" : "មុខ"})
+                  បញ្ចូលទៅរទេះ ({qty})
                 </a>
               </Button>
 
