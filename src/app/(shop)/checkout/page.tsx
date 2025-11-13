@@ -49,7 +49,7 @@ export default async function CheckoutPage() {
       <div className="grid md:grid-cols-2 gap-8">
         {/* ─── DELIVERY INFORMATION ─── */}
         <Card className="shadow-xl border-0 rounded-xl">
-          <CardContent className="p-6 space-y-8">
+          <CardContent className="py-4 space-y-8">
             <form action="/api/checkout" method="POST" className="space-y-6">
               {selectedIds.map((id) => (
                 <input key={id} type="hidden" name="selectedIds" value={id} />
@@ -142,7 +142,7 @@ export default async function CheckoutPage() {
 
         {/* ─── ORDER SUMMARY (Khmer) ─── */}
         <Card className="shadow-xl border-0 rounded-xl h-fit">
-          <CardHeader className="pb-4">
+          <CardHeader className="py-4 space-y-8 -mb-8">
             <h2 className="text-2xl font-bold font-khmer text-gray-800">សង្ខេបការបញ្ជាទិញ ({items.length} មុខ)</h2>
           </CardHeader>
           <CardContent className="space-y-5">
