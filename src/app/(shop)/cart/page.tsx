@@ -36,7 +36,7 @@ export default async function CartPage() {
       <div className="text-center py-16">
         <h2 className="text-4xl font-semibold mb-6 font-khmer text-gray-800">រទេះទំនិញរបស់អ្នកទទេ</h2>
         <Button asChild className="h-14 px-8 text-lg font-khmer-toch bg-blue-600 hover:bg-blue-700">
-          <Link href="/">បន្តទំនិញ</Link>
+          <Link href="/">ទៅទិញទំនិញ</Link>
         </Button>
       </div>
     );
